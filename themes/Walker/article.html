@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head> 
+  <meta charset="utf-8" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+  <title>{{ &articleSingle.title }} - {{ &OPT.siteName }}</title> 
+  <meta name="description" content="{{ &OPT.siteDescription }}" /> 
+  <meta name="keywords" content="{{ &keyWords }}">
+  <link rel="shortcut icon" href="https://sgsck.neocities.org/themes/Walker/files/favicon.ico" />  
+  <link rel="stylesheet" href="https://sgsck.neocities.org/themes/Walker/files/katex.min.css" /> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@1.3.1/fonts/remixicon.css" /> 
+  <link rel="stylesheet" href="https://sgsck.neocities.org/themes/Walker/files/fonts.css" /> 
+  <link rel="stylesheet" href="https://sgsck.neocities.org/themes/Walker/files/animate.min.css" /> 
+  <link rel="stylesheet" href="https://sgsck.neocities.org/themes/Walker/files/main.min.css" /> 
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">   
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  {{ &OPT.codeBeforHead }}
+ </head> 
+ <body> 
+  <div class="main px-4 flex flex-col lg:flex-row"> 
+   <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4"> 
+    <div class="lg:sticky top-0"> 
+     <div class="sidebar-content"> 
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50"> 
+       <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> 
+       <a href="/"> <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://sgsck.neocities.org/themes/Walker/files/avatar.jpg" alt="" /> </a> 
+       <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">{{ &OPT.siteName }}</h1> 
+      </div> 
+            <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+              <p class="my-4 text-gray-600 font-light hidden lg:block">文章目录</p>
+              <div class="toc-container hidden lg:block">
+
+              </div>
+            </div>
+     </div> 
+    </div> 
+   </div> 
+   <div class="menu-container"> 
+    <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i> 
+    <div> 
+    {{ #widgetMenuList }}
+	 <a class="menu" href="{{ &url }}">{{ &title }}</a>
+    {{ /widgetMenuList }}
+    </div>
+    <div class="site-footer"> 
+     <div class="py-4 text-gray-700">
+      <a href="/admin">登录</a>
+     </div> 
+     <a href="/sitemap.xml" target="_blank">SiteMap</a> 
+    </div> 
+   </div> 
+   <div class="mask" onclick="closeMenu()"> 
+   </div> 
+  <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn"> 
+    <h1 class="text-3xl font-bold lg:mt-16">{{ &articleSingle.title }}</h1> 
+    <div class="text-sm text-gray-700 lg:my-8">
+  {{ &articleSingle.createDate10 }} / 
+  {{ #articleSingle.category }}
+	  <a href="/category/{{&.}}" rel="category tag">{{&.}}</a>
+  {{ /articleSingle.category }}
+    </div> 
+	<br>
+    <!-- <img class="post-feature-image rounded-lg mx-auto my-4" src="" alt=""> 自行选择是否 输出文章封面  -->
+	 <!-- 文章开始 -->
+    <div class="post-content yue"> 
+	
+	{{ &articleSingle.contentHtml }}
+	
+    </div> 
+  {{ #articleSingle.tags }}
+	  <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full lg:inline-flex m-1 " href="/tags/{{&.}}" rel="tag">
+            <span class="flex-auto">{{&.}}</span>
+          </a>
+  {{ /articleSingle.tags }}
+    <!-- 上下篇文章-->
+	<div class="flex justify-between py-8"> 
+     <div class="prev-post"> 
+                                  {{ #articleNewer }}
+                                  <a href="{{ &url }}"  class="pre">{{ &title }}</a>
+                                  {{ /articleNewer }}
+     </div> 
+     <div class="next-post"> 
+          {{ #articleOlder }}
+          <a href="{{ &url }}" class="next">{{ &title }}</a>
+          {{ /articleOlder }}
+     </div> 
+    </div> 
+	{{ &OPT.commentCode }}
+   </div> 
+  </div>
+
+  <a href="javascript:;" class="to-top"><i class="remixicon-arrow-up-s-line text-2xl" style="background-color: #ffffff; border-radius: 50rem; padding: 12px;"></i></a>
+  <script src="https://sgsck.neocities.org/themes/Walker/files/jquery.toTop.js"></script>
+  <script>
+  $('.to-top').toTop({
+      //options with default values
+      autohide: true,
+      offset: 420,
+      speed: 500,
+      position: true,
+      right: 15,
+      bottom: 30
+  });
+</script>
+	<script src="https://sgsck.neocities.org/themes/Walker/files/jquery.toc.js"></script> 
+    <script>
+        var options = {
+            selector: 'h2, h3, h4',
+            scope: '.post-content'
+        };
+
+        // for jQuery version
+        $('.toc-container').initTOC(options);
+
+    </script>	
+	<script src="https://sgsck.neocities.org/themes/Walker/files/prism.js"></script> 
+	<script src="https://sgsck.neocities.org/themes/Walker/files/walker.js"></script>		 
+	                 <script>
+                                // 给图片添加链接
+                                $(document).ready(function() {
+                                    $("p img").each(function() {
+                                        var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+                                        $(this).wrapAll(strA);
+                                    });
+                                });
+   		</script>
+		<script>
+			        // B站视频自适应
+                                var iframe = document.getElementsByTagName("iframe");
+                                var num = iframe.length;
+                                for (; num > 0; num--) {
+                                    iframe[num - 1].style.height = iframe[num - 1].scrollWidth * 0.5625 + "px";
+                                }
+                                </script>
+		{{ &OPT.codeBeforBody }}
+ </body>
+</html>
